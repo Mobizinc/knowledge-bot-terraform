@@ -185,6 +185,6 @@ resource "azurerm_redis_cache" "knowledge-bot" {
 
 resource "azurerm_static_site" "knowledge-bot" {
   name                = "knowledge-bot-front-end"
-  location                    = azurerm_resource_group.knowledge-bot.location
+  location                    = "eastus2"
   resource_group_name         = azurerm_resource_group.knowledge-bot.name
 }
