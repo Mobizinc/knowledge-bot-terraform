@@ -187,4 +187,10 @@ resource "azurerm_static_site" "knowledge-bot" {
   name                = "knowledge-bot-front-end"
   location                    = "eastus2"
   resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  tags = {
+        environment      = var.environment
+        application_name = var.application_name
+        Project_Code     = var.project_code
+        Owner            = var.owner
+      }
 }
