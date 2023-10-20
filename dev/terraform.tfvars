@@ -1,0 +1,7 @@
+location                  = "eastus"
+resource_group_name       = "rg-knowledge-bot"
+environment               = "Dev"
+project_code              = "prj-knowledge-bot"
+owner                     = "wobeidy@mobizinc.com"
+keyvault_name             = "knowledge-bot-kv"
+keyvault_sku              = "standard"
