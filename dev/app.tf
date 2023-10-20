@@ -165,4 +165,20 @@ resource "azurerm_key_vault" "knowledge-bot_keyvault" {
    ]
  }
 
+resource "azurerm_redis_cache" "knowledge-bot" {
+  name                = "knowledge-bot"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  capacity            = 0
+  family              = "C"
+  sku_name            = "Basic"
+  enable_non_ssl_port = false
+  minimum_tls_version = "1.2"
 
+  tags = {
+        environment      = var.environment
+        application_name = var.application_name
+        Project_Code     = var.project_code
+        Owner            = var.owner
+      }
+}
