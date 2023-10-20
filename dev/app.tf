@@ -182,3 +182,9 @@ resource "azurerm_redis_cache" "knowledge-bot" {
         Owner            = var.owner
       }
 }
+
+resource "azurerm_static_site" "knowledge-bot" {
+  name                = "knowledge-bot-front-end"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+}
