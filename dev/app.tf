@@ -144,6 +144,11 @@ depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ]
         Project_Code     = var.project_code
         Owner            = var.owner
       }
+  lifecycle {
+    ignore_changes = [
+      app_settings,
+    ]
+  }
 }
 
 
