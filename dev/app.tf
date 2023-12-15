@@ -240,3 +240,35 @@ resource "azurerm_static_site" "knowledge-bot" {
         Owner            = var.owner
       }
 }
+
+resource "azurerm_linux_web_app" "knowledge-bot-front-end" {
+  app_settings = {
+    APPLICATIONINSIGHTS_CONNECTION_STRING      = "InstrumentationKey=0c8adbc4-e472-4d89-b3cc-cd06a52a6b6d;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+    AZURE_AD_CLIENT_ID                         = "76ae1e67-c3d9-464d-b7f7-e5b89398e221"
+    AZURE_AD_TENANT_ID                         = "organizations"
+    ApplicationInsightsAgent_EXTENSION_VERSION = "~3"
+    NEXTAUTH_SECRET                            = "ZmPyZU/WBIa4oATeVrDnm/ZDnAq8dzVLtrbZZRcoMRg="
+    NEXTAUTH_URL                               = "https://knowledge.mobizinc.com"
+    NEXT_PUBLIC_API_URL                        = "https://knowledge-bot-back-end.azurewebsites.net"
+    SCM_DO_BUILD_DURING_DEPLOYMENT             = "true"
+    WEBSITE_NODE_DEFAULT_VERSION               = "18-lts"
+    XDT_MicrosoftApplicationInsights_Mode      = "default"
+  }
+  https_only                  = true
+  name                        = "knowledge-bot-front-end-test"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  service_plan_id             = azurerm_service_plan.asp-knowledge-bot.id
+  tags = {
+    Environment  = "Dev"
+    Owner        = "wobeidy@mobizinc.com"
+    Project_Code = "prj-knowledge-bot"
+  }
+
+  site_config {
+    always_on                                     = true
+    application_stack {
+      node_version             = "18-lts"
+    }
+  }
+}
