@@ -128,6 +128,15 @@ depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ]
            python_version  = "3.10"
        
      }  
+     cors {
+               allowed_origins     = [
+                   "http://localhost:3000",
+                   "https://calm-grass-07517a20f.4.azurestaticapps.net",
+                   "https://knowledge-bot-front-end-test.azurewebsites.net",
+                   "https://knowledge.mobizinc.com",
+                ] 
+                support_credentials = true 
+            }
   }
   tags = {
         environment      = var.environment
