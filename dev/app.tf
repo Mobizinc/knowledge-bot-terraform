@@ -280,8 +280,8 @@ resource "azurerm_linux_web_app" "knowledge-bot-front-end" {
 
 resource "azurerm_service_plan" "knowledge-bot-logic-app" {
   name                        = "asp-knowledge-bot-logic-app"
-  location                    = azurerm_resource_group.architect_app.location
-  resource_group_name         = azurerm_resource_group.architect_app.name
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
   os_type             = "Windows"
   sku_name            = "WS1"
 
