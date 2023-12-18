@@ -271,4 +271,29 @@ resource "azurerm_linux_web_app" "knowledge-bot-front-end" {
       node_version             = "18-lts"
     }
   }
+  lifecycle {
+    ignore_changes = [
+      app_settings
+    ]
+  }
+}
+
+resource "azurerm_service_plan" "knowledge-bot-logic-app" {
+  name                        = "asp-knowledge-bot-logic-app"
+  location                    = azurerm_resource_group.architect_app.location
+  resource_group_name         = azurerm_resource_group.architect_app.name
+  os_type             = "Windows"
+  sku_name            = "WS1"
+
+}
+
+resource "azurerm_logic_app_standard" "knowledge-bot-la" {
+
+  name                        = "knowledge-bot-la"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  service_plan_id             = azurerm_service_plan.knowledge-bot-logic-app.id
+  storage_account_name        = azurerm_storage_account.knowledge-bot-sa.name
+  storage_account_access_key  = azurerm_storage_account.knowledge-bot-sa.primary_access_key
+
 }
