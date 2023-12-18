@@ -295,5 +295,6 @@ resource "azurerm_logic_app_standard" "knowledge-bot-la" {
   app_service_plan_id         = azurerm_service_plan.knowledge-bot-logic-app.id
   storage_account_name        = azurerm_storage_account.knowledge-bot-sa.name
   storage_account_access_key  = azurerm_storage_account.knowledge-bot-sa.primary_access_key
+  version                     = "4"
 
 }
