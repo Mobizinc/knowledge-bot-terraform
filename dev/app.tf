@@ -292,7 +292,7 @@ resource "azurerm_logic_app_standard" "knowledge-bot-la" {
   name                        = "knowledge-bot-la"
   location                    = azurerm_resource_group.knowledge-bot.location
   resource_group_name         = azurerm_resource_group.knowledge-bot.name
-  service_plan_id             = azurerm_service_plan.knowledge-bot-logic-app.id
+  app_service_plan_id         = azurerm_service_plan.knowledge-bot-logic-app.id
   storage_account_name        = azurerm_storage_account.knowledge-bot-sa.name
   storage_account_access_key  = azurerm_storage_account.knowledge-bot-sa.primary_access_key
 
