@@ -296,5 +296,7 @@ resource "azurerm_logic_app_standard" "knowledge-bot-la" {
   storage_account_name        = azurerm_storage_account.knowledge-bot-sa.name
   storage_account_access_key  = azurerm_storage_account.knowledge-bot-sa.primary_access_key
   version                     = "4"
-
+  identity {
+      type         = "SystemAssigned" 
+  }
 }
