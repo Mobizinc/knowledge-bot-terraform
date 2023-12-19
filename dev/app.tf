@@ -102,6 +102,12 @@ resource "azurerm_user_assigned_identity" "mi-knowledge-bot" {
 }
 
 
+resource "azurerm_application_insights" "kb-ai" {
+  name                = "kb-backend-ai"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  application_type    = "web"
+}
 
 resource "azurerm_linux_web_app" "knowledge-bot-back-end" {
 depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ] 
