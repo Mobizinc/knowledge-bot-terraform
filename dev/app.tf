@@ -322,8 +322,8 @@ resource "azurerm_linux_function_app" "kb-blobtrigger" {
   
 
   site_config {
-     application_insights_key                      = var.application_insights_gpt3-service_enabled ? azurerm_application_insights.application_insights_kb-blobtrigger.instrumentation_key 
-     application_insights_connection_string        = var.application_insights_gpt3-service_enabled ? azurerm_application_insights.application_insights_kb-blobtrigger.connection_string 
+     application_insights_key                      =  azurerm_application_insights.application_insights_kb-blobtrigger.instrumentation_key 
+     application_insights_connection_string        =  azurerm_application_insights.application_insights_kb-blobtrigger.connection_string 
      vnet_route_all_enabled                        = true
 
      application_stack  {
