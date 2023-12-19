@@ -306,3 +306,36 @@ resource "azurerm_logic_app_standard" "knowledge-bot-la" {
       type         = "SystemAssigned" 
   }
 }
+
+
+resource "azurerm_linux_function_app" "kb-blobtrigger" {
+  name                       = "kb-blobtrigger"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  service_plan_id            = azurerm_service_plan.asp-knowledge-bot.id
+  storage_account_name        = azurerm_storage_account.knowledge-bot-sa.name
+  storage_account_access_key  = azurerm_storage_account.knowledge-bot-sa.primary_access_key
+  https_only                 = true
+  identity {
+    type = "SystemAssigned"
+  }
+  
+
+  site_config {
+     #application_insights_key                      = var.application_insights_gpt3-service_enabled ? azurerm_application_insights.application_insights_gpt3-service[0].instrumentation_key : null
+     #application_insights_connection_string        = var.application_insights_gpt3-service_enabled ? azurerm_application_insights.application_insights_gpt3-service[0].connection_string : null
+     always_on                                     = true
+     vnet_route_all_enabled                        = true
+
+     application_stack  {
+      python_version = "3.10"
+     }  
+  }
+
+  tags = {
+        environment      = var.environment
+        application_name = var.application_name
+        Project_Code     = var.project_code
+        Owner            = var.owner
+      }
+}
