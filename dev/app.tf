@@ -352,3 +352,9 @@ resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
         Owner            = var.owner
       }
 }
+
+resource "azurerm_eventgrid_topic" "eventgrid_kb_blobtrigger" {
+  name                        = "eventgrid-kb-blobtrigger"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+}
