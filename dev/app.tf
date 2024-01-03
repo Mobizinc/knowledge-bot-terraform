@@ -362,7 +362,7 @@ resource "azurerm_linux_function_app" "kb-blobtrigger" {
   }
 }
 
-resource "azurerm_linux_function_app" "kb-blobtrigger" {
+resource "azurerm_linux_function_app" "kb-blobtrigger-01" {
   name                       = "kb-blobtrigger-01"
   location                    = azurerm_resource_group.knowledge-bot.location
   resource_group_name         = azurerm_resource_group.knowledge-bot.name
