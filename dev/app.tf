@@ -337,6 +337,11 @@ resource "azurerm_linux_function_app" "kb-blobtrigger" {
         Project_Code     = var.project_code
         Owner            = var.owner
       }
+  lifecycle {
+    ignore_changes = [
+      app_settings,
+    ]
+  }
 }
 
 resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
