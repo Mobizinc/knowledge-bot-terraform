@@ -40,6 +40,10 @@ variable "keyvault_sku" {
   type        = string
 }
 
+variable "storage_account_name" {
+  description = "Storage account name"
+  type        = string
+}
 
 resource "azurerm_resource_group" "knowledge-bot" {
     name = var.resource_group_name
@@ -54,7 +58,7 @@ resource "azurerm_resource_group" "knowledge-bot" {
 
 
 resource "azurerm_storage_account" "knowledge-bot-sa" {
-  name                      = "sa-${var.project_code}-${lower(var.environment)}"
+  name                      = var.storage_account_name
   location                  = azurerm_resource_group.knowledge-bot.location
   resource_group_name       = azurerm_resource_group.knowledge-bot.name
   account_tier              = "Standard"
