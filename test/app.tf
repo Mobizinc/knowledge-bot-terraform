@@ -40,13 +40,7 @@ variable "keyvault_sku" {
   type        = string
 }
 
-variable "storage_account_name" {
-  description = "Storage account name"
-  type        = string
-}
 
-
-#build azure resource group
 resource "azurerm_resource_group" "knowledge-bot" {
     name = var.resource_group_name
     location = var.location
@@ -60,7 +54,7 @@ resource "azurerm_resource_group" "knowledge-bot" {
 
 
 resource "azurerm_storage_account" "knowledge-bot-sa" {
-  name                      = var.storage_account_name
+  name                      = "sa-${var.project_code}-${lower(var.environment)}"
   location                  = azurerm_resource_group.knowledge-bot.location
   resource_group_name       = azurerm_resource_group.knowledge-bot.name
   account_tier              = "Standard"
@@ -119,6 +113,7 @@ resource "azurerm_application_insights" "kb-ai" {
       }
 }
 
+/*
 resource "azurerm_linux_web_app" "knowledge-bot-back-end" {
 depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ] 
   name                        = "${var.project_code}-${lower(var.environment)}-backend"
@@ -336,5 +331,5 @@ resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
         Owner            = var.owner
       }
 }
-
+*/
 
