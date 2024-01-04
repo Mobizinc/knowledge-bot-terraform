@@ -117,7 +117,7 @@ resource "azurerm_application_insights" "kb-ai" {
       }
 }
 
-/*
+
 resource "azurerm_linux_web_app" "knowledge-bot-back-end" {
 depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ] 
   name                        = "${var.project_code}-${lower(var.environment)}-backend"
@@ -335,5 +335,3 @@ resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
         Owner            = var.owner
       }
 }
-*/
-
