@@ -1,0 +1,8 @@
+location                  = "eastus"
+resource_group_name       = "rg-knowledge-bot-test"
+environment               = "Test"
+project_code              = "knowledge-bot"
+owner                     = "wobeidy@mobizinc.com"
+keyvault_name             = "knowledge-bot-kv-test"
+keyvault_sku              = "standard"
+storage_account_name      = "knowledgebotsatest"
