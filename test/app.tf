@@ -149,8 +149,8 @@ depends_on = [azurerm_user_assigned_identity.mi-knowledge-bot ]
      cors {
                allowed_origins     = [
                    "http://localhost:3000",
-                   "https://knowledge-bot-test-front-end.azurewebsites.net",
-                   "https://knowledge.mobizinc.com",
+                   "https://knowledge-bot-test-frontend.azurewebsites.net",
+           
                 ] 
                 support_credentials = true 
             }
