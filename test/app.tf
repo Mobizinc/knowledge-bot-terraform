@@ -336,6 +336,20 @@ resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
       }
 }
 
+resource "azurerm_application_insights" "kb_backend_ai" {
+  name                        = "ai-kb-frontend"
+  location                    = azurerm_resource_group.knowledge-bot.location
+  resource_group_name         = azurerm_resource_group.knowledge-bot.name
+  application_type            = "web"
+  internet_ingestion_enabled  = "true"
+  tags = {
+        environment      = var.environment
+        application_name = var.application_name
+        Project_Code     = var.project_code
+        Owner            = var.owner
+      }
+}
+
 resource "azurerm_search_service" "knowledge_bot_search_service" {
   name                        = "${var.project_code}-${lower(var.environment)}-search"
   location                    = azurerm_resource_group.knowledge-bot.location
