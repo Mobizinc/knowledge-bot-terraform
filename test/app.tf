@@ -337,7 +337,7 @@ resource "azurerm_application_insights" "application_insights_kb-blobtrigger" {
 }
 
 resource "azurerm_application_insights" "kb_backend_ai" {
-  name                        = "ai-kb-backend"
+  name                        = "ai-test-kb-backend"
   location                    = azurerm_resource_group.knowledge-bot.location
   resource_group_name         = azurerm_resource_group.knowledge-bot.name
   application_type            = "web"
