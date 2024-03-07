@@ -120,7 +120,7 @@ resource "azurerm_log_analytics_workspace" "kb-law" {
   name                = "kb-dev-law"
   location            = azurerm_resource_group.knowledge-bot.location
   resource_group_name = azurerm_resource_group.knowledge-bot.name
-  sku                 = "Free"
+  sku                 = "PerGB2018"
   tags = {
         environment      = var.environment
         application_name = var.application_name
