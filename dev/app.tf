@@ -107,7 +107,7 @@ resource "azurerm_application_insights" "kb-ai" {
   location            = azurerm_resource_group.knowledge-bot.location
   resource_group_name = azurerm_resource_group.knowledge-bot.name
   application_type    = "web"
-  workspace_id        = azurerm_log_analytics_workspace.kb-law.id
+  #workspace_id        = azurerm_log_analytics_workspace.kb-law.id
   tags = {
         environment      = var.environment
         application_name = var.application_name
