@@ -121,6 +121,12 @@ resource "azurerm_log_analytics_workspace" "kb-law" {
   location            = azurerm_resource_group.knowledge-bot.location
   resource_group_name = azurerm_resource_group.knowledge-bot.name
   sku                 = "Free"
+  tags = {
+        environment      = var.environment
+        application_name = var.application_name
+        Project_Code     = var.project_code
+        Owner            = var.owner
+  }
 }
 
 resource "azurerm_linux_web_app" "knowledge-bot-back-end" {
