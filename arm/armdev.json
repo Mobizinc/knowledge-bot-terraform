@@ -18,63 +18,91 @@
     },
     "servicePlanName": {
       "type": "string",
-      "defaultValue": "myServicePlan",
+      "defaultValue": "asp-knowledge-bot",
       "metadata": {
         "description": "Name of the App Service Plan"
       }
     },
-    "linuxWebAppName": {
+    "servicePlanNameLA": {
       "type": "string",
-      "defaultValue": "mylinuxwebapp",
+      "defaultValue": "asp-knowledge-bot-logic-app",
       "metadata": {
-        "description": "Name of the Linux Web App"
+        "description": "Name of the App Service Plan for Logic App"
+      }
+    },
+    "linuxWebAppBE": {
+      "type": "string",
+      "defaultValue": "knowledge-bot-back-end",
+      "metadata": {
+        "description": "Name of the Linux Web App Backend"
+      }
+    },
+    "linuxWebAppFE": {
+      "type": "string",
+      "defaultValue": "knowledge-bot-front-end",
+      "metadata": {
+        "description": "Name of the Linux Web App Frontend"
+      }
+    },
+    "managedIdentityName": {
+      "type": "string",
+      "defaultValue": "mi-knowledge-bot",
+      "metadata": {
+        "description": "Name of the Managed Identity"
       }
     },
     "keyVaultName": {
       "type": "string",
-      "defaultValue": "mykeyvault",
+      "defaultValue": "knowledge-bot-kv",
       "metadata": {
         "description": "Name of the Key Vault"
       }
     },
-    "appInsightsName": {
+    "appInsightsBE": {
       "type": "string",
-      "defaultValue": "myappinsights",
+      "defaultValue": "kb-backend-ai",
       "metadata": {
-        "description": "Name of the Application Insights"
+        "description": "Name of the Application Insights Backend"
+      }
+    },
+    "appInsightsBlob": {
+      "type": "string",
+      "defaultValue": "ai-kb-blobtrigger",
+      "metadata": {
+        "description": "Name of the Application Insights Blob"
       }
     },
     "logAnalyticsWorkspaceName": {
       "type": "string",
-      "defaultValue": "myloganalyticsworkspace",
+      "defaultValue": "kb-dev-law",
       "metadata": {
         "description": "Name of the Log Analytics Workspace"
       }
     },
     "redisCacheName": {
       "type": "string",
-      "defaultValue": "myrediscache",
+      "defaultValue": "knowledge-bot",
       "metadata": {
         "description": "Name of the Redis Cache"
       }
     },
     "logicAppName": {
       "type": "string",
-      "defaultValue": "mylogicapp",
+      "defaultValue": "knowledge-bot-la",
       "metadata": {
         "description": "Name of the Logic App"
       }
     },
-    "linuxFunctionAppName": {
+    "linuxFunctionAppBlob": {
       "type": "string",
-      "defaultValue": "mylinuxfunctionapp",
+      "defaultValue": "kb-blobtrigger",
       "metadata": {
-        "description": "Name of the Linux Function App"
+        "description": "Name of the Linux Function App for Blob"
       }
     },
     "eventGridTopicName": {
       "type": "string",
-      "defaultValue": "myeventgridtopic",
+      "defaultValue": "kb-eventgrid-blobtrigger",
       "metadata": {
         "description": "Name of the Event Grid Topic"
       }
@@ -118,7 +146,7 @@
     {
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2021-02-01",
-      "name": "asp-knowledge-bot",
+      "name": "[parameters('servicePlanName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -139,7 +167,7 @@
     {
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2021-02-01",
-      "name": "asp-knowledge-bot-logic-app",
+      "name": "[parameters('servicePlanNameLA')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -160,7 +188,7 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2021-02-01",
-      "name": "knowledge-bot-back-end",
+      "name": "[parameters('linuxWebAppBE')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -169,18 +197,18 @@
         "Owner"           : "[parameters('Owner')]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'mi-knowledge-bot')]"
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]"
       ],
       "identity": {
         "type": "UserAssigned",
         "userAssignedIdentities": {
-            "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'mi-knowledge-bot')]": {}
+            "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]": {}
         }
       },
       "properties": {
         "httpsOnly": true,
-        "keyVaultReferenceIdentity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', 'mi-knowledge-bot')]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'asp-knowledge-bot')]",
+        "keyVaultReferenceIdentity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
           "alwaysOn": true,
           "vnetRouteAllEnabled": true,
@@ -240,7 +268,7 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2021-02-01",
-      "name": "knowledge-bot-front-end",
+      "name": "[parameters('linuxWebAppFE')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -250,7 +278,7 @@
       },
       "properties": {
         "httpsOnly": true,
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'asp-knowledge-bot')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
           "alwaysOn": true,
           "nodeVersion": "18-lts",
@@ -275,7 +303,7 @@
     {
       "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
       "apiVersion": "2018-11-30",
-      "name": "mi-knowledge-bot",
+      "name": "[parameters('managedIdentityName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -288,7 +316,7 @@
     {
       "type": "Microsoft.KeyVault/vaults",
       "apiVersion": "2019-09-01",
-      "name": "knowledge-bot-kv",
+      "name": "[parameters('keyVaultName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -307,7 +335,7 @@
         "accessPolicies": [
           {
             "tenantId": "[subscription().tenantId]",
-            "objectId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', 'mi-knowledge-bot')).principalId]",
+            "objectId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('managedIdentityName'))).principalId]",
             "permissions": {
               "keys": [
                 "get",
@@ -326,7 +354,7 @@
     {
       "type": "Microsoft.Insights/components",
       "apiVersion": "2015-05-01",
-      "name": "kb-backend-ai",
+      "name": "[parameters('appInsightsBE')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -336,7 +364,7 @@
       },
       "properties": {
         "Application_Type": "web",
-        "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', 'kb-dev-law')]"
+        "WorkspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('logAnalyticsWorkspaceName'))]"
       },
       "kind": "web"
     },
@@ -344,7 +372,7 @@
     {
       "type": "Microsoft.Insights/components",
       "apiVersion": "2015-05-01",
-      "name": "ai-kb-blobtrigger",
+      "name": "[parameters('appInsightsBlob')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -362,7 +390,7 @@
     {
       "type": "Microsoft.OperationalInsights/workspaces",
       "apiVersion": "2021-06-01",
-      "name": "kb-dev-law",
+      "name": "[parameters('logAnalyticsWorkspaceName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -380,7 +408,7 @@
     {
       "type": "Microsoft.Cache/redis",
       "apiVersion": "2021-06-01",
-      "name": "knowledge-bot",
+      "name": "[parameters('redisCacheName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -402,7 +430,7 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2021-02-01",
-      "name": "kb-blobtrigger",
+      "name": "[parameters('linuxFunctionAppBlob')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -412,14 +440,14 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-        "[resourceId('Microsoft.Insights/components', 'ai-kb-blobtrigger')]"
+        "[resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))]"
       ],
       "identity": {
         "type": "SystemAssigned"
       },
       "properties": {
         "httpsOnly": true,
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'asp-knowledge-bot')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
           "vnetRouteAllEnabled": true,
           "alwaysOn": true,
@@ -427,7 +455,7 @@
           "appSettings": [
             {
               "AzureWebJobsStorage"            : "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2021-02-01').keys[0].value, ';EndpointSuffix=core.windows.net')]",
-              "APPINSIGHTS_INSTRUMENTATIONKEY" : "[reference(resourceId('Microsoft.Insights/components', 'ai-kb-blobtrigger')).InstrumentationKey]"
+              "APPINSIGHTS_INSTRUMENTATIONKEY" : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).InstrumentationKey]"
             }
           ]
         }
@@ -438,7 +466,7 @@
     {
       "type": "Microsoft.Web/sites",
       "apiVersion": "2021-02-01",
-      "name": "knowledge-bot-la",
+      "name": "[parameters('logicAppName')]",
       "location": "[parameters('location')]",
       "tags": {
         "environment"     : "[parameters('environment')]",
@@ -447,11 +475,11 @@
         "Owner"           : "[parameters('Owner')]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', 'asp-knowledge-bot-logic-app')]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanNameLA'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
       ],
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'asp-knowledge-bot-logic-app')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanNameLA'))]",
         "siteConfig": {
           "appSettings": [
             {
@@ -470,7 +498,7 @@
     {
       "type": "Microsoft.EventGrid/topics",
       "apiVersion": "2021-12-01",
-      "name": "kb-eventgrid-blobtrigger",
+      "name": "[parameters('eventGridTopicName')]",
       "location": "[parameters('location')]",
       "properties": {}
     }
@@ -484,17 +512,25 @@
       "type": "string",
       "value": "[parameters('servicePlanName')]"
     },
-    "linuxWebAppName": {
+    "linuxWebAppBE": {
       "type": "string",
-      "value": "[parameters('linuxWebAppName')]"
+      "value": "[parameters('linuxWebAppBE')]"
+    },
+    "linuxWebAppFE": {
+      "type": "string",
+      "value": "[parameters('linuxWebAppFE')]"
     },
     "keyVaultName": {
       "type": "string",
       "value": "[parameters('keyVaultName')]"
     },
-    "appInsightsName": {
+    "appInsightsBlob": {
       "type": "string",
-      "value": "[parameters('appInsightsName')]"
+      "value": "[parameters('appInsightsBlob')]"
+    },
+    "appInsightsBE": {
+      "type": "string",
+      "value": "[parameters('appInsightsBE')]"
     },
     "logAnalyticsWorkspaceName": {
       "type": "string",
@@ -504,9 +540,9 @@
       "type": "string",
       "value": "[parameters('redisCacheName')]"
     },
-    "linuxFunctionAppName": {
+    "linuxFunctionAppBlob": {
       "type": "string",
-      "value": "[parameters('linuxFunctionAppName')]"
+      "value": "[parameters('linuxFunctionAppBlob')]"
     },
     "logicAppName": {
       "type": "string",
