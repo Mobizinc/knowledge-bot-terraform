@@ -118,6 +118,47 @@
     },
     "Owner": {
       "type": "string"
+    },
+    "searchServiceName": {
+      "type": "string",
+      "defaultValue": "knowledge-bot-basic",
+      "metadata": {
+        "description": "Name of the Azure Cognitive Search service"
+      }
+    },
+    "openAiServiceName": {
+      "type": "string",
+      "defaultValue": "azure-chatbot-openai",
+      "metadata": {
+        "description": "Name of the Azure OpenAI service"
+      }
+    },
+    "sqlServerName": {
+      "type": "string",
+      "defaultValue": "azure-chatbot-sql",
+      "metadata": {
+        "description": "Name of the SQL Server"
+      }
+    },
+    "sqlAdminUsername": {
+      "type": "string",
+      "defaultValue": "azurechatbotuser",
+      "metadata": {
+        "description": "SQL Server admin username"
+      }
+    },
+    "sqlAdminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "SQL Server admin password"
+      }
+    },
+    "sqlDatabaseName": {
+      "type": "string",
+      "defaultValue": "azurechatbotdb",
+      "metadata": {
+        "description": "Name of the SQL Database"
+      }
     }
   },
   "resources": [
@@ -501,6 +542,63 @@
       "name": "[parameters('eventGridTopicName')]",
       "location": "[parameters('location')]",
       "properties": {}
+    },
+    //////////Search Service//////////
+    {
+      "type": "Microsoft.Search/searchServices",
+      "apiVersion": "2020-08-01",
+      "name": "[parameters('searchServiceName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "standard"
+      },
+      "properties": {
+        "replicaCount": 1,
+        "partitionCount": 1,
+        "hostingMode": "default"
+      }
+    },
+    //////////Azure OpenAI//////////
+    {
+      "type": "Microsoft.CognitiveServices/accounts",
+      "apiVersion": "2021-04-30",
+      "name": "[parameters('openAiServiceName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "S0"
+      },
+      "kind": "OpenAI",
+      "properties": {
+        "apiProperties": {
+          "qnaMakerEndpoint": "https://[parameters('openAiServiceName')].cognitiveservices.azure.com"
+        }
+      }
+    },
+    //////////SQL Server//////////
+    {
+      "type": "Microsoft.Sql/servers",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[parameters('sqlServerName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "administratorLogin": "[parameters('sqlAdminUsername')]",
+        "administratorLoginPassword": "[parameters('sqlAdminPassword')]"
+      }
+    },
+    //////////SQL DB//////////
+    {
+      "type": "Microsoft.Sql/servers/databases",
+      "apiVersion": "2021-02-01-preview",
+      "name": "[concat(parameters('sqlServerName'), '/', parameters('sqlDatabaseName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "collation": "SQL_Latin1_General_CP1_CI_AS",
+        "maxSizeBytes": 2147483648,
+        "sampleName": "AdventureWorksLT"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+      ]
     }
   ],
   "outputs": {
@@ -551,6 +649,22 @@
     "eventGridTopicName": {
       "type": "string",
       "value": "[parameters('eventGridTopicName')]"
+    },
+    "searchServiceName": {
+      "type": "string",
+      "value": "[parameters('searchServiceName')]"
+    },
+    "openAiServiceName": {
+      "type": "string",
+      "value": "[parameters('openAiServiceName')]"
+    },
+    "sqlServerName": {
+      "type": "string",
+      "value": "[parameters('sqlServerName')]"
+    },
+    "sqlDatabaseName": {
+      "type": "string",
+      "value": "[parameters('sqlDatabaseName')]"
     }
   }
 }
