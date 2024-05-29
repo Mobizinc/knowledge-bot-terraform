@@ -228,7 +228,7 @@
     //////////Linux Webapp Backend//////////
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-09-01",
       "name": "[parameters('linuxWebAppBE')]",
       "location": "[parameters('location')]",
       "tags": {
@@ -308,7 +308,7 @@
     //////////Linux Webapp Frontend//////////
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-09-01",
       "name": "[parameters('linuxWebAppFE')]",
       "location": "[parameters('location')]",
       "tags": {
@@ -470,7 +470,7 @@
     //////////Linux Function App//////////
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-09-01",
       "name": "[parameters('linuxFunctionAppBlob')]",
       "location": "[parameters('location')]",
       "tags": {
@@ -506,7 +506,7 @@
     //////////Logicapp Standard//////////
     {
       "type": "Microsoft.Web/sites",
-      "apiVersion": "2021-02-01",
+      "apiVersion": "2022-09-01",
       "name": "[parameters('logicAppName')]",
       "location": "[parameters('location')]",
       "tags": {
