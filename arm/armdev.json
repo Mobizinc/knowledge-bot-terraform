@@ -18,91 +18,91 @@
     },
     "servicePlanName": {
       "type": "string",
-      "defaultValue": "asp-knowledge-bot",
+      "defaultValue": "armasp-knowledge-bot",
       "metadata": {
         "description": "Name of the App Service Plan"
       }
     },
     "servicePlanNameLA": {
       "type": "string",
-      "defaultValue": "asp-knowledge-bot-logic-app",
+      "defaultValue": "armasp-knowledge-bot-logic-app",
       "metadata": {
         "description": "Name of the App Service Plan for Logic App"
       }
     },
     "linuxWebAppBE": {
       "type": "string",
-      "defaultValue": "knowledge-bot-back-end",
+      "defaultValue": "armknowledge-bot-back-end",
       "metadata": {
         "description": "Name of the Linux Web App Backend"
       }
     },
     "linuxWebAppFE": {
       "type": "string",
-      "defaultValue": "knowledge-bot-front-end",
+      "defaultValue": "armknowledge-bot-front-end",
       "metadata": {
         "description": "Name of the Linux Web App Frontend"
       }
     },
     "managedIdentityName": {
       "type": "string",
-      "defaultValue": "mi-knowledge-bot",
+      "defaultValue": "armmi-knowledge-bot",
       "metadata": {
         "description": "Name of the Managed Identity"
       }
     },
     "keyVaultName": {
       "type": "string",
-      "defaultValue": "knowledge-bot-kv",
+      "defaultValue": "armknowledge-bot-kv",
       "metadata": {
         "description": "Name of the Key Vault"
       }
     },
     "appInsightsBE": {
       "type": "string",
-      "defaultValue": "kb-backend-ai",
+      "defaultValue": "armkb-backend-ai",
       "metadata": {
         "description": "Name of the Application Insights Backend"
       }
     },
     "appInsightsBlob": {
       "type": "string",
-      "defaultValue": "ai-kb-blobtrigger",
+      "defaultValue": "armai-kb-blobtrigger",
       "metadata": {
         "description": "Name of the Application Insights Blob"
       }
     },
     "logAnalyticsWorkspaceName": {
       "type": "string",
-      "defaultValue": "kb-dev-law",
+      "defaultValue": "armkb-dev-law",
       "metadata": {
         "description": "Name of the Log Analytics Workspace"
       }
     },
     "redisCacheName": {
       "type": "string",
-      "defaultValue": "knowledge-bot",
+      "defaultValue": "armknowledge-bot",
       "metadata": {
         "description": "Name of the Redis Cache"
       }
     },
     "logicAppName": {
       "type": "string",
-      "defaultValue": "knowledge-bot-la",
+      "defaultValue": "armknowledge-bot-la",
       "metadata": {
         "description": "Name of the Logic App"
       }
     },
     "linuxFunctionAppBlob": {
       "type": "string",
-      "defaultValue": "kb-blobtrigger",
+      "defaultValue": "armkb-blobtrigger",
       "metadata": {
         "description": "Name of the Linux Function App for Blob"
       }
     },
     "eventGridTopicName": {
       "type": "string",
-      "defaultValue": "kb-eventgrid-blobtrigger",
+      "defaultValue": "armkb-eventgrid-blobtrigger",
       "metadata": {
         "description": "Name of the Event Grid Topic"
       }
@@ -121,28 +121,28 @@
     },
     "searchServiceName": {
       "type": "string",
-      "defaultValue": "knowledge-bot-basic",
+      "defaultValue": "armknowledge-bot-basic",
       "metadata": {
         "description": "Name of the Azure Cognitive Search service"
       }
     },
     "openAiServiceName": {
       "type": "string",
-      "defaultValue": "azure-chatbot-openai",
+      "defaultValue": "armazure-chatbot-openai",
       "metadata": {
         "description": "Name of the Azure OpenAI service"
       }
     },
     "sqlServerName": {
       "type": "string",
-      "defaultValue": "azure-chatbot-sql",
+      "defaultValue": "armazure-chatbot-sql",
       "metadata": {
         "description": "Name of the SQL Server"
       }
     },
     "sqlAdminUsername": {
       "type": "string",
-      "defaultValue": "azurechatbotuser",
+      "defaultValue": "armazurechatbotuser",
       "metadata": {
         "description": "SQL Server admin username"
       }
@@ -155,7 +155,7 @@
     },
     "sqlDatabaseName": {
       "type": "string",
-      "defaultValue": "azurechatbotdb",
+      "defaultValue": "armazurechatbotdb",
       "metadata": {
         "description": "Name of the SQL Database"
       }
