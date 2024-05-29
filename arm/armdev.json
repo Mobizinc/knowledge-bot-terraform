@@ -238,7 +238,8 @@
         "Owner"           : "[parameters('Owner')]"
       },
       "dependsOn": [
-        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]"
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]"
       ],
       "identity": {
         "type": "UserAssigned",
@@ -317,6 +318,9 @@
         "Project_Code"    : "[parameters('Project_Code')]",
         "Owner"           : "[parameters('Owner')]"
       },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]"
+      ],
       "properties": {
         "httpsOnly": true,
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
@@ -394,7 +398,7 @@
     //////////App Insight Backend//////////
     {
       "type": "Microsoft.Insights/components",
-      "apiVersion": "2015-05-01",
+      "apiVersion": "2020-02-02",
       "name": "[parameters('appInsightsBE')]",
       "location": "[parameters('location')]",
       "tags": {
@@ -481,7 +485,8 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
-        "[resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))]"
+        "[resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))]",
+        "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]"
       ],
       "identity": {
         "type": "SystemAssigned"
