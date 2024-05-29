@@ -325,7 +325,7 @@
           "nodeVersion": "18-lts",
           "appSettings": [
             {
-                "APPLICATIONINSIGHTS_CONNECTION_STRING"      : "InstrumentationKey=0c8adbc4-e472-4d89-b3cc-cd06a52a6b6d;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/",
+                "APPLICATIONINSIGHTS_CONNECTION_STRING"      : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).ConnectionString]",
                 "AZURE_AD_CLIENT_ID"                         : "76ae1e67-c3d9-464d-b7f7-e5b89398e221",
                 "AZURE_AD_TENANT_ID"                         : "organizations",
                 "ApplicationInsightsAgent_EXTENSION_VERSION" : "~3",
