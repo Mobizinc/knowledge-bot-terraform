@@ -371,6 +371,7 @@
         "Owner"           : "[parameters('Owner')]"
       },
       "properties": {
+        "enableSoftDelete": false,
         "softDeleteRetentionInDays": 7,
         "enablePurgeProtection": true,
         "sku": {
