@@ -108,16 +108,20 @@
       }
     },
     "environment": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "Dev"
     },
     "application_name": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "knowledge-bot"
     },
     "Project_Code": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "knowledge-bot"
     },
     "Owner": {
-      "type": "string"
+      "type": "string",
+      "defaultValue": "wobeidy@mobizinc.com"
     },
     "searchServiceName": {
       "type": "string",
@@ -253,6 +257,7 @@
         "keyVaultReferenceIdentity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('managedIdentityName'))]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
+          "linuxFxVersion": "Python|3.10",
           "alwaysOn": true,
           "vnetRouteAllEnabled": true,
           "appCommandLine": "python -m uvicorn main:app --host 0.0.0.0",
@@ -265,45 +270,45 @@
                    "https://knowledge.mobizinc.com"
                 ],
             "supportCredentials": true
-          },
-          "appSettings": [
-            {
-              "WEBSITE_PYTHON_VERSION"              : "3.10",
-              "SCM_DO_BUILD_DURING_DEPLOYMENT"      :  "true",
-              "ACCESS_TOKEN_EXPIRES_IN"             : "15", 
-              "AZURE_CLIENT_ID"                     : "76ae1e67-c3d9-464d-b7f7-e5b89398e221",
-              "AZURE_COGNITIVE_SEARCH_INDEX_NAME"   : "mobizsalesindex",
-              "AZURE_COGNITIVE_SEARCH_SERVICE_NAME" : "https://knowledge-bot-basic-15.search.windows.net",
-              "AZURE_TENANT_ID"                     : "8bfe0e10-3213-49c3-ba07-719dee9fd10b",
-              "BLOB_CONTAINER_NAME"                 : "mobizsalesdocs",
-              "CLIENT_ORIGIN"                       : "http://localhost:3000",
-              "DOCUMENT_CHUNK_OVERLAP"              : "100",
-              "DOCUMENT_CHUNK_SIZE"                 : "1000",
-              "DOCUMENT_SOURCE_DIRECTORY"           : "HR", 
-              "INDEX_DOCUMENT"                      : "False",
-              "JWT_ALGORITHM"                       : "HS256",
-              "LANGCHAIN_API_KEY"                   : "ls__8ac8b824b49c41a6b9f841913de6b998",
-              "LANGCHAIN_PROJECT"                   : "pt-knowledge-bot-mobiz",
-              "OPENAI_API_BASE"                     : "https://azure-chatbot-openai.openai.azure.com/",
-              "OPENAI_API_KEY"                      : "fb9d9eaaf03c46629022499658423536",
-              "OPENAI_API_VERSION"                  : "2023-05-15",
-              "POSTGRES_DB"                         : "apollo",
-              "POSTGRES_HOST"                       : "azure-chatbot-sql.database.windows.net",
-              "POSTGRES_HOSTNAME"                   : "azure-chatbot-sql.database.windows.net",
-              "POSTGRES_PASSWORD"                   : "9aX!7rP^2oL8t3Y0z",
-              "POSTGRES_USER"                       : "muhammad.ayaz",
-              "REDIS_CACHE_HOST"                    : "mobizassistant.redis.cache.windows.net",
-              "REDIS_CACHE_PORT"                    : "6380",
-              "REFRESH_TOKEN_EXPIRES_IN"            : "60", 
-              "SEARCH_API_VERSION"                  : "2023-07-01-Preview",
-              "SEARCH_SERVICE_NAME"                 : "knowledge-bot-basic-15",
-              "SECOND_DB"                           : "apollo",
-              "SECRET_KEY"                          : "supersecretljfdl283894839jlddfk",
-              "STORAGE_ACCOUNT_NAME"                : "asanofibotsdemo85dd",
-              "STORAGE_CONNECTION_STRING"           : "DefaultEndpointsProtocol=https;AccountName=asanofibotsdemo85dd;AccountKey=***;EndpointSuffix=core.windows.net\"",
-              "UPLOAD_DOCUMENTS"                    : "False"
-            }
-          ]
+          }
+          // "appSettings": [
+          //   {
+          //     "WEBSITE_PYTHON_VERSION"              : "3.10",
+          //     "SCM_DO_BUILD_DURING_DEPLOYMENT"      :  "true",
+          //     "ACCESS_TOKEN_EXPIRES_IN"             : "15", 
+          //     "AZURE_CLIENT_ID"                     : "76ae1e67-c3d9-464d-b7f7-e5b89398e221",
+          //     "AZURE_COGNITIVE_SEARCH_INDEX_NAME"   : "mobizsalesindex",
+          //     "AZURE_COGNITIVE_SEARCH_SERVICE_NAME" : "https://knowledge-bot-basic-15.search.windows.net",
+          //     "AZURE_TENANT_ID"                     : "8bfe0e10-3213-49c3-ba07-719dee9fd10b",
+          //     "BLOB_CONTAINER_NAME"                 : "mobizsalesdocs",
+          //     "CLIENT_ORIGIN"                       : "http://localhost:3000",
+          //     "DOCUMENT_CHUNK_OVERLAP"              : "100",
+          //     "DOCUMENT_CHUNK_SIZE"                 : "1000",
+          //     "DOCUMENT_SOURCE_DIRECTORY"           : "HR", 
+          //     "INDEX_DOCUMENT"                      : "False",
+          //     "JWT_ALGORITHM"                       : "HS256",
+          //     "LANGCHAIN_API_KEY"                   : "ls__8ac8b824b49c41a6b9f841913de6b998",
+          //     "LANGCHAIN_PROJECT"                   : "pt-knowledge-bot-mobiz",
+          //     "OPENAI_API_BASE"                     : "https://azure-chatbot-openai.openai.azure.com/",
+          //     "OPENAI_API_KEY"                      : "fb9d9eaaf03c46629022499658423536",
+          //     "OPENAI_API_VERSION"                  : "2023-05-15",
+          //     "POSTGRES_DB"                         : "apollo",
+          //     "POSTGRES_HOST"                       : "azure-chatbot-sql.database.windows.net",
+          //     "POSTGRES_HOSTNAME"                   : "azure-chatbot-sql.database.windows.net",
+          //     "POSTGRES_PASSWORD"                   : "9aX!7rP^2oL8t3Y0z",
+          //     "POSTGRES_USER"                       : "muhammad.ayaz",
+          //     "REDIS_CACHE_HOST"                    : "mobizassistant.redis.cache.windows.net",
+          //     "REDIS_CACHE_PORT"                    : "6380",
+          //     "REFRESH_TOKEN_EXPIRES_IN"            : "60", 
+          //     "SEARCH_API_VERSION"                  : "2023-07-01-Preview",
+          //     "SEARCH_SERVICE_NAME"                 : "knowledge-bot-basic-15",
+          //     "SECOND_DB"                           : "apollo",
+          //     "SECRET_KEY"                          : "supersecretljfdl283894839jlddfk",
+          //     "STORAGE_ACCOUNT_NAME"                : "asanofibotsdemo85dd",
+          //     "STORAGE_CONNECTION_STRING"           : "DefaultEndpointsProtocol=https;AccountName=asanofibotsdemo85dd;AccountKey=***;EndpointSuffix=core.windows.net\"",
+          //     "UPLOAD_DOCUMENTS"                    : "False"
+          //   }
+          // ]
         }
       }
     },
@@ -327,21 +332,22 @@
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
           "alwaysOn": true,
-          "nodeVersion": "18-lts",
-          "appSettings": [
-            {
-                "APPLICATIONINSIGHTS_CONNECTION_STRING"      : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).ConnectionString]",
-                "AZURE_AD_CLIENT_ID"                         : "76ae1e67-c3d9-464d-b7f7-e5b89398e221",
-                "AZURE_AD_TENANT_ID"                         : "organizations",
-                "ApplicationInsightsAgent_EXTENSION_VERSION" : "~3",
-                "NEXTAUTH_SECRET"                            : "ZmPyZU/WBIa4oATeVrDnm/ZDnAq8dzVLtrbZZRcoMRg=",
-                "NEXTAUTH_URL"                               : "https://knowledge.mobizinc.com",
-                "NEXT_PUBLIC_API_URL"                        : "https://knowledge-bot-back-end.azurewebsites.net",
-                "SCM_DO_BUILD_DURING_DEPLOYMENT"             : "true",
-                "WEBSITE_NODE_DEFAULT_VERSION"               : "18-lts",
-                "XDT_MicrosoftApplicationInsights_Mode"      : "default"
-            }
-          ]
+          "linuxFxVersion": "Python|3.10",
+          "nodeVersion": "18-lts"
+          // "appSettings": [
+          //   {
+          //       "APPLICATIONINSIGHTS_CONNECTION_STRING"      : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).ConnectionString]",
+          //       "AZURE_AD_CLIENT_ID"                         : "76ae1e67-c3d9-464d-b7f7-e5b89398e221",
+          //       "AZURE_AD_TENANT_ID"                         : "organizations",
+          //       "ApplicationInsightsAgent_EXTENSION_VERSION" : "~3",
+          //       "NEXTAUTH_SECRET"                            : "ZmPyZU/WBIa4oATeVrDnm/ZDnAq8dzVLtrbZZRcoMRg=",
+          //       "NEXTAUTH_URL"                               : "https://knowledge.mobizinc.com",
+          //       "NEXT_PUBLIC_API_URL"                        : "https://knowledge-bot-back-end.azurewebsites.net",
+          //       "SCM_DO_BUILD_DURING_DEPLOYMENT"             : "true",
+          //       "WEBSITE_NODE_DEFAULT_VERSION"               : "18-lts",
+          //       "XDT_MicrosoftApplicationInsights_Mode"      : "default"
+          //   }
+          // ]
         }
       }
     },
@@ -497,15 +503,16 @@
         "httpsOnly": true,
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanName'))]",
         "siteConfig": {
+          "linuxFxVersion": "Python|3.10",
           "vnetRouteAllEnabled": true,
           "alwaysOn": true,
-          "pythonversion": "3.10",
-          "appSettings": [
-            {
-              "AzureWebJobsStorage"            : "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2021-02-01').keys[0].value, ';EndpointSuffix=core.windows.net')]",
-              "APPINSIGHTS_INSTRUMENTATIONKEY" : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).InstrumentationKey]"
-            }
-          ]
+          "pythonversion": "3.10"
+          // "appSettings": [
+          //   {
+          //     "AzureWebJobsStorage"            : "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2021-02-01').keys[0].value, ';EndpointSuffix=core.windows.net')]",
+          //     "APPINSIGHTS_INSTRUMENTATIONKEY" : "[reference(resourceId('Microsoft.Insights/components', parameters('appInsightsBlob'))).InstrumentationKey]"
+          //   }
+          // ]
         }
       },
       "kind": "functionapp,linux"
@@ -529,11 +536,12 @@
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('servicePlanNameLA'))]",
         "siteConfig": {
-          "appSettings": [
-            {
-              "AzureWebJobsStorage"            : "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), '2021-02-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
-            }
-          ]
+          "functionsRuntimeScaleMonitoringEnabled" : false
+          // "appSettings": [
+          //   {
+          //     "AzureWebJobsStorage" : "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')),'2021-02-01').keys[0].value,';EndpointSuffix=core.windows.net')]"
+          //   }
+          // ]
         },
         "httpsOnly": true
       },
