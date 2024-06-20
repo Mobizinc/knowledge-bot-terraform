@@ -12,4 +12,4 @@ You can provision Azure resources for the solution accelerator using  the Deploy
 
 Click on the Deploy to Azure button to deploy the Azure resources for the application.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMobizinc%2Fknowledge-bot-terraform%2Farm%2Farm/armdev.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMobizinc%2Fknowledge-bot-terraform%2Farm%2Farmdev.json)
