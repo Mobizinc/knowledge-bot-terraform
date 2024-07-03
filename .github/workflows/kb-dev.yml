@@ -1,0 +1,83 @@
+name: 'Deploy to DEV-2 Knowledge-Bot'
+on:
+  workflow_dispatch:
+     inputs:
+      tf_action:
+        type: choice
+        description: "TF Actions plan/apply"
+        required: true
+        options:
+         - plan
+         - apply
+
+permissions:
+  contents: read
+
+jobs:
+   terraform-plan:
+    name: 'Plan for DEV-2 environment'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    runs-on: ubuntu-latest
+    environment: dev2-plan
+    defaults:
+     run:
+      working-directory: "./dev-2"
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+      # Install the 1.6.0 version of Terraform CLI
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.0
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+
+      # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan   -out=/tmp/dev2tfplan
+
+
+   terraform-apply:
+    if: ${{ github.event.inputs.tf_action == 'apply' }}
+    needs: [terraform-plan]
+    name: 'Apply for DEV-2 environment'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    runs-on: ubuntu-latest
+    environment: dev-2
+    defaults:
+     run:
+      working-directory: "./dev-2"
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+      # Install the 1.6.0 version of Terraform CLI
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.0
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+
+
+      # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan  -out=/tmp/dev2tfplan
+
+    - name: Terraform Apply
+      run: terraform apply /tmp/dev2tfplan
